@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+
+@{
+    ITrackingConsentFeature? consentFeature = Context.Features.Get<ITrackingConsentFeature>(); //objet qui verifie si oui ou non il y a eu consentement 
+    bool showBanner = !consentFeature?.CanTrack ?? false; //affiche la baniere SSi on a pas recu le consentement 
+    string? cookieString = consentFeature?.CreateConsentCookie(); //recuperation de la possible cookies string (identifiant permettant de reconnaitre le cookie a l'interieur de l'html)
+}
+
+@if (showBanner) //si je dois montrer ma baniere que dois je afficher?
+{
+    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
+        Ce site utilise des cookies essentiels pour son bon fonctionnement.
+        <a asp-action="privacy" asp-controller="home"> En savoir plus </a> 
+        <button type="button" class="accept-policy btn btn-outline-success rounded-pill" data-bs-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString"> Accepter </button>
+    </div>
+    <script>
+        (function()
+        {
+            let button = document.querySelector('#cookieConsent button[data-cookie-string]');
+            button.addEventListener(
+                'click', function(event){
+                document.cookie = button.dataset.cookieString;
+                }, false);
+        })();
+    </script>
+}

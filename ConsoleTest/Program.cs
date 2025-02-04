@@ -1,5 +1,8 @@
 ﻿using BLL.Entities;
 using BLL.Services;
+using Common.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace ConsoleTest
 {
@@ -19,6 +22,20 @@ namespace ConsoleTest
             //    Console.WriteLine($"{u.User_Id} : {u.First_Name} {u.Last_Name} - {u.Email} : {u.Password}");
             //    Console.ResetColor();
             //}
+
+            ServiceProvider serviceProvider = new ServiceCollection()
+    .AddScoped<ICocktailRepository<DAL.Entities.Cocktail>, DAL.Services.CocktailService>()
+    .AddScoped<BLL.Services.CocktailService>()
+    .BuildServiceProvider();
+            BLL.Services.CocktailService service = serviceProvider.GetRequiredService<BLL.Services.CocktailService>();
+
+            foreach (Cocktail cocktail in service.Get())
+            {
+                Console.WriteLine($"{cocktail.Cocktail_id} : {cocktail.Name}");
+            }
+            
+
+            
         }
     }
 }

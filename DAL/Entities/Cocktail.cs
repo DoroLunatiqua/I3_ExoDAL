@@ -11,8 +11,8 @@ namespace DAL.Entities
         public Guid Cocktail_id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
-        public string Instruction { get; set; }
+        public string Instructions { get; set; }
         public DateTime CreatedAt { get; set; }
-        public Guid? CreateBy { get; set; }
+        public Guid? CreatedBy { get; set; }
     }
 }

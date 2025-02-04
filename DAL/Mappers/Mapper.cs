@@ -33,9 +33,9 @@ namespace DAL.Mappers
                 Cocktail_id = (Guid)record[nameof(Cocktail.Cocktail_id)],
                 Name = (string)record[nameof(Cocktail.Name)],
                 Description = (record[nameof(Cocktail.Description)] is DBNull) ? null : (string)record[nameof(Cocktail.Description)],
-                Instruction = (string)record[nameof(Cocktail.Instruction)],
+                Instructions = (string)record[nameof(Cocktail.Instructions)],
                 CreatedAt = (DateTime)record[nameof(Cocktail.CreatedAt)],
-                CreateBy = (record[nameof(Cocktail.CreateBy)] is DBNull) ? null : (Guid)record[nameof(Cocktail.CreateBy)]
+                CreatedBy = (record[nameof(Cocktail.CreatedBy)] is DBNull) ? null : (Guid)record[nameof(Cocktail.CreatedBy)]
 
             };
         }
